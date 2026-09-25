@@ -109,6 +109,7 @@ jobs:
         run: | 
           IMAGE="${{ env.IMAGE_NAME}}:${{ needs.docker-build-push.outputs.image_tag}}"
           sed -i "s|\${IMAGE}|${IMAGE}|g" k8s/deployment.yaml
+          sed -i "s|\${SECRET_NAME}|${{ env.SECRET_NAME}}|g" k8s/deployment.yaml
       - name: Deploy the manifests
         run: |
           kubectl apply -n ${{ env.NAMESPACE }} -f k8s/deployment.yaml
