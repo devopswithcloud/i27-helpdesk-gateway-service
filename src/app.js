@@ -39,7 +39,7 @@ app.get("/healthz", (req, res) => res.json({ status: "UP" }));
 app.get("/readyz", (req, res) => res.json({ status: "READY" }));
 
 // 🔹 CORS (support single or multiple origins comma-separated)
-const uiOriginRaw = process.env.UI_ORIGIN;
+const uiOriginRaw = process.env.UI_ORIGIN || "*";
 const uiOrigins =
   uiOriginRaw === "*"
     ? "*"
