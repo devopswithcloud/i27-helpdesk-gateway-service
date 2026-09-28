@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: i27helpdesk-gateway
+  namespace: i27helpdesk-prod
+  annotations: 
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec: 
+  ingressClassName: nginx 
+  tls:
+  - hosts:
+    - gateway-prod.i27helpdesk.in
+    secretName: i27helpdesk-gateway-tls
+  rules:
+  - host: gateway-prod.i27helpdesk.in
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend: 
+          service:
+            name: i27-gateway
+            port: 
+              number: 80
+
+
+#               kubectl create secrert tls 
